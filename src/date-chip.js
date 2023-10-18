@@ -4,11 +4,11 @@ const logo = new URL('../assets/open-wc-logo.svg', import.meta.url).href;
 
 class DateChip extends LitElement {
   static properties = {
-    header: { type: String },
+    date: { type: String },
   }
 
   static styles = css`
-    :host {
+    /* :host {
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -20,67 +20,64 @@ class DateChip extends LitElement {
       margin: 0 auto;
       text-align: center;
       background-color: var(--date-chip-background-color);
-    }
+    } */
 
-    main {
-      flex-grow: 1;
-    }
+    .date-container{
+  margin-right: 10px;
+ text-align: center;
+ float: left;
+}
 
-    .logo {
-      margin-top: 36px;
-      animation: app-logo-spin infinite 20s linear;
-    }
+.date-month{
+    display: block;
+    background: #1E407C;
+    border-radius: 0 0 2px 2px;
+    color: #FFF;
+    font-size: 0.8em;
+    font-weight: bold;
+    line-height: 1.8;
+    padding: 1px 10px;
+    text-transform: uppercase;
+}
 
-    @keyframes app-logo-spin {
-      from {
-        transform: rotate(0deg);
-      }
-      to {
-        transform: rotate(360deg);
-      }
-    }
-
-    .app-footer {
-      font-size: calc(12px + 0.5vmin);
-      align-items: center;
-    }
-
-    .app-footer a {
-      margin-left: 5px;
-    }
+.date-container .date-day {
+    background: #f7f7f7;
+    border-radius: 2px 2px 0 0;
+    color: #444;
+    display: block;
+    font-size: 18px;
+    font-weight: 900;
+    padding: 10px 20px;
+}
   `;
 
   constructor() {
     super();
-    this.header = 'My app';
+    this.date = '';
+    this.day = '';
+  }
+
+  firstUpdated() {
+    const userDate = prompt('Please enter date', 'mm/dd/yyyy');
+
+    const date = new Date(userDate);
+    const month = date.toLocaleString('default', { month: 'short' });
+    const day = date.getDate();
+    this.date = month;
+    this.day = day;
+
+
+
   }
 
   render() {
     return html`
-      <main>
-        <div class="logo"><img alt="open-wc logo" src=${logo} /></div>
-        <h1>${this.header}</h1>
+  
 
-        <p>Edit <code>src/DateChip.js</code> and save to reload.</p>
-        <a
-          class="app-link"
-          href="https://open-wc.org/guides/developing-components/code-examples/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Code examples
-        </a>
-      </main>
-
-      <p class="app-footer">
-        🚽 Made with love by
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          href="https://github.com/open-wc"
-          >open-wc</a
-        >.
-      </p>
+  <div class="date-container">
+		  <span class="date-month">${this.date}</span>
+			<span class="date-day">${this.day}</span>
+</div>
     `;
   }
 }
