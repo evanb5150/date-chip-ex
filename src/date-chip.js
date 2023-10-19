@@ -58,13 +58,13 @@ class DateChip extends LitElement {
   }
 
   firstUpdated() {
-    const userDate = prompt('Please enter date', 'mm/dd/yyyy');
-
-    const date = new Date(userDate);
+    
+    const date = new Date(this.date); // Date class accepts string as a parameter
+    const day = date.getDate(); // get the day of the month
     const month = date.toLocaleString('default', { month: 'short' });
-    const day = date.getDate();
-    this.date = month;
     this.day = day;
+    this.date = month;
+
 
 
 
